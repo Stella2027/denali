@@ -39,6 +39,7 @@ function create() {
     ledge.body.immovable = true
     ledge = platforms.create(600, 100, 'ground');
     ledge.body.immovable = true
+    ledge = platforms.create(400, 36)
 
 scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
 
@@ -46,9 +47,9 @@ scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' }
 
     stars.enableBody = true;
 
-    for (var i = 0; i < 100; i++)
+    for (var i = 0; i < 1000; i++)
     {
-        var star = stars.create(i * 7, 0, 'star');
+        var star = stars.create(i * 5, 0, 'star');
 
         star.body.gravity.y = 6;
 
