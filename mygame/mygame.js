@@ -11,21 +11,20 @@ var player;
 var stars;
 var score = 0;
 var scoreText;
-var blue;
+
 
 
 function preload() {
-    game.load.image('sky', 'assets/sky.png');
+    game.load.image('sky', 'assets/sky.jpg');
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-    game.load.image('blue', 'assets/blue.png');
+    game.load.image('star', 'assets/star.png');
 }
 
 function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.add.sprite(0, 0, "sky");
-    game.add.sprite(0, 0, "blue");
     platforms = game.add.group();
     platforms.enableBody = true;
 
@@ -34,20 +33,24 @@ function create() {
     ground.body.immovable = false;
 
     var ledge = platforms.create(0, 89, 'ground');
-    ledge.body.immovable = true;
+    ledge.body.immovable = false;
     ledge = platforms.create(250, 400, 'ground');
     ledge.scale.setTo(0.85, 1);
     ledge.body.immovable = false;
     ledge = platforms.create(0, 240, 'ground');
-    ledge.body.immovable = true;
+    ledge.body.immovable = false;
     ledge = platforms.create(600, 100, 'ground');
-    ledge.body.immovable = true;
+    ledge.body.immovable = false;
+    ledge = platforms.create(250, 400, 'ground');
+    ledge.body.immovable = false;
+    
+    
     
 
 
     scoreText = game.add.text(16, 16, 'Score: 0', {
-        fontSize: '32px',
-        fill: '#000'
+        fontSize: '40px',
+        fill: '#924'
     });
 
     stars = game.add.group();
@@ -57,7 +60,7 @@ function create() {
     for (var i = 0; i < 100; i++) {
         var star = stars.create(i * 8, 0, 'star');
 
-        star.body.gravity.y = 5;
+        star.body.gravity.y = 6;
 
         star.body.bounce.y = 0.6 + Math.random() * 0.2;
     }
@@ -65,8 +68,8 @@ function create() {
 
     player = game.add.sprite(32, game.world.height - 150, 'dude');
     game.physics.arcade.enable(player);
-    player.body.bounce.y = 0.2;
-    player.body.gravity.y = 250;
+    player.body.bounce.y = 0.8;
+    player.body.gravity.y = 200;
     player.body.collideWorldBounds = true;
     player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -77,7 +80,7 @@ function create() {
 
 function collectStar(player, star) {
 
-    star.kill();
+    star.kill(3);
 
     score += 1;
     scoreText.text = 'Score: ' + score;
